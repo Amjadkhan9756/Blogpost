@@ -16,9 +16,9 @@ export default function Home() {
   const router=useRouter();
   return (
     <>
-    <div className="container">
-      <div className="mainContainer">
-        <div className="mianCntainer__Left">
+    <div className={styles.container}>
+      <div className={styles.mainContainer}>
+        <div className={styles.mianCntainer__Left}>
 
     <h1>Connect with friends without Exaggeration </h1>
 
@@ -27,7 +27,7 @@ export default function Home() {
         <p>A true social media platfrom, with stories with no blufs</p>
          <button onClick={()=>{router.push("/login")}} className="Joinbutton">JOIN</button>
 
-        <div className="mainContainer__Right">
+        <div className={styles.mainContainer__Right}>
           <img src="/imgaes/banner.png "></img>
         </div>
       </div>
