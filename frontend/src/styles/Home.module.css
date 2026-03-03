@@ -1,0 +1,95 @@
+.container{
+
+    font-family:"Poppins";
+    padding: 4rem;
+}
+
+.mainContainer{
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 4rem;
+padding-inline: 2rem;
+height: 80vh;
+}
+
+.container_Left{
+    flex: 0.5;
+}
+.container_right{
+    flex: 0.5;
+}
+.container_Left >p:nth-child(1){
+    font-size: 2.9rem;
+    font-weight: bold;
+}
+
+.container_Left >p:nth-child(2){
+    color:#4d4d4d;
+    font-size: 1.7rem;
+}
+.container_Left >div.buttonJoin{
+    width: fit-content;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s;
+    margin-top: 0.8rem;
+   font-size: 1.4rem;
+   background-color: rgb(197, 44, 208);
+   color : white;
+   padding-inline: 1.2rem;
+   padding-block: 0.6rem;
+   border-radius: 20px;
+}
+
+
+
+
+@media only  screen and (max-width:600px) {
+    .mainContainer{
+
+
+        flex-direction: column;
+        gap: 2rem;
+        padding-top: 1.3rem;
+
+    }
+    .container_Left{
+        padding-bottom: 1.3rem;
+        flex: 1;
+        
+    }
+
+    .container_right{
+
+        flex: 1;
+        
+    }
+
+        .container_right img{
+            width: 100%;
+        
+        
+    }
+
+
+
+
+.buttonJoin p{
+    
+    width: fit-content;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s;
+    margin-top: 0.2rem;
+   font-size: 1rem;
+   background-color: rgb(197, 44, 208);
+   color : white;
+   padding-inline: 1rem;
+   
+   border-radius: 10px;
+
+
+}
+}
+

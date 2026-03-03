@@ -1,0 +1,173 @@
+.homeContainer{
+    display: flex;
+    
+
+
+  height: 100vh;       /* NEW: full viewport height */
+  overflow: hidden;
+}
+
+.homeContainer> div:nth-child(odd){
+    flex:0.2;
+}
+
+
+.homeContainer> div:nth-child(even){
+    flex:0.6;
+}
+
+.sidebarOption{
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    font-size: 1.2rem;
+    gap:1.2rem;
+    width:80%;
+    max-width:80%;
+    margin:0 auto;
+
+    transition: all 0.2s;
+}
+
+.homeContainer_left{
+    display:flex;
+    flex-direction: column;
+    gap:1.2rem;
+    align-items: start;
+    border-right: 1px solid rgb(222, 222, 222);
+    
+     
+
+
+
+
+
+
+
+ flex: 0.2;                 /* moved here instead of nth-child */
+  position: sticky;          /* NEW: sticks to top */
+  top: 0;                    /* NEW: position anchor */
+  height: 100vh;             /* NEW: full height */
+  overflow-y: auto;
+
+
+}
+
+
+
+
+
+
+
+.homeContainer_feedContainer{
+
+
+
+
+
+
+
+
+
+
+
+
+    flex: 0.6;                /* middle takes most space */
+  height: 100vh;            /* NEW: full height */
+  overflow-y: auto;         /* NEW: independent scroll */
+  padding: 1rem;
+  padding-bottom: 8vh;            /* optional: spacing */
+}
+
+.sidebarOption >svg{
+height:1.3em;
+min-width: fit-content;
+}
+
+.sidebarOption:hover{
+ 
+    transform:scale(1.02);
+}
+
+.homeContainer_extraContainer{
+
+border-left: 1px solid rgb(222, 222, 222);
+padding-left: 1.5rem;
+
+
+
+
+
+
+
+
+
+
+
+
+flex: 0.2;                 /* moved here instead of nth-child */
+  position: sticky;          /* NEW: fixed like sidebar */
+  top: 0;                    /* NEW: position anchor */
+  height: 100vh;             /* NEW: full height */
+  overflow-y: auto;
+
+}
+
+.mobileNavBar {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100vw;
+height: 48px;
+;
+display: none;
+justify-content: space-around;
+background: white;
+align-items: center;
+
+}
+
+
+@media only screen and (max-width:600px){
+    .homeContainer_extraContainer{
+        display: none;
+    }
+    .homeContainer{
+        display: block;
+    }
+    .homeContainer_left{
+        display: none;
+    }
+
+
+
+
+.mobileNavBar {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100vw;
+height: 48px;
+;
+display: flex;
+justify-content: space-around;
+background: white;
+align-items: center;
+
+}
+
+.singleitemNavbarView{
+
+
+
+}
+
+.mobileNavBar svg{
+    height: 24px;
+    width: 24px;
+
+
+
+
+}
+}

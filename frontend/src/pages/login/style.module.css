@@ -1,0 +1,101 @@
+.container{
+    display: flex;
+    justify-content: center;
+    height: 90svh;
+    align-items: center;
+    background:snow ;
+}
+.cardContainer{
+    height: 80vh;
+    border-radius: 10px;
+    display: flex;
+    overflow: hidden;
+    width: 80vw;
+    background: white;
+    box-shadow: 10px 10px 15px rgba(173,173,173);
+}
+
+.cardContainer_left{
+text-align: center;
+padding: 2rem;
+flex: 0.6;
+
+}
+.cardContainer_right{
+    flex: 0.4;
+    display: flex;
+    justify-content: center;
+    background-color: #00488b;
+    align-items: center;
+    flex-direction: column;
+    gap:1.2rem;
+    padding-inline: 1.2rem;
+}
+
+.cardleft_heading{
+
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.inputField{
+
+    padding-inline: 1.3rem;
+    padding-block:0.8rem;
+    outline:none;
+    border-radius: 10px;
+    border:1px solid silver;    
+    width: 100%;
+
+     box-sizing: border-box;
+}
+.inputcontainers{
+
+
+     gap: 1.2rem; /* 🔵 Cleaned: removed duplicate line */
+    /* width: 100%; 🔵 Added: Ensures consistent width alignment */
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1.3rem;
+    max-width: 400px;
+    margin: 0 auto;
+    gap:1.2rem;
+}
+.inputRow{
+    width: fit-content;
+    display:flex;
+    gap:1.2rem;
+    width: 100%;
+    width: 100%; /* 🔵 Added: Ensures row aligns with other inputs */
+
+}
+.buttonWithOutline{
+    width:100%;
+    padding:0.8rem ;
+    cursor: pointer;
+    background:rgb(236, 236, 236);
+   border-radius: 10px;
+   padding-inline: 0.2rem;
+}
+.buttonWithOutline_text{
+
+}
+
+.cardleft_message{
+  
+
+}
+
+
+
+
+@media only  screen and (max-width:600px) {
+    .cardContainer{
+        flex-direction: column;
+      
+    }
+    
+}
