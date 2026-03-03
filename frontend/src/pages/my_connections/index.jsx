@@ -1,4 +1,5 @@
-import { BASE_URL } from "@/config";
+import Avatar from "@/Component/Avatar";
+import VerifiedBadge from "@/Component/VerifiedBadge";
 import { getMyConnectionsRequest } from "@/config/redux/action/authaction";
 import DashboardLayout from "@/layout/dasboardLayout";
 import UserLayout from "@/layout/userlayout";
@@ -33,13 +34,19 @@ function Myconnection() {
             <h1>No Connections Requests</h1>
           )}
           {authState.connectionRequet?.length !== 0 &&
-            authState.connectionRequet?.filter((connection)=>connection.status_accepted === null).map((user) => {
+            authState.connectionRequet
+              ?.filter((connection)=>connection.status_accepted === null)
+              .map((user) => {
+              const profileUser = user.userId;
+
+              if (!profileUser) return null;
+
               return (
                 <div
                   className={styles.userCard}
                   onClick={() => {
                     router.push(
-                      `/view_profile?username=${user.userId.username}`
+                      `/view_profile?username=${profileUser.username}`
                     );
                   }}
                 >
@@ -52,15 +59,19 @@ function Myconnection() {
                     }}
                   >
                     <div className={styles.profilePicture}>
-                      <img
-                        src={`${BASE_URL}uploads/${user.userId.profilePicture}`}
-                        alt="profilePicture"
-                        className=""
+                      <Avatar
+                        src={profileUser.profilePicture}
+                        name={profileUser.name}
+                        className={styles.connectionAvatar}
+                        initialClassName={styles.connectionAvatarInitials}
                       />
                     </div>
                     <div className={styles.userInfo}>
-                      <h3>{user.userId.name}</h3>
-                      <p className="">{user.userId.username}</p>
+                      <h3 style={{ display: "inline-flex", alignItems: "center" }}>
+                        {profileUser.name}
+                        <VerifiedBadge verified={profileUser.verified} size={16} />
+                      </h3>
+                      <p className="">{profileUser.username}</p>
                     </div>
 
                   
@@ -83,13 +94,18 @@ function Myconnection() {
             })}
         <h4 className="">My Networks</h4>
        
-            {authState.connectionRequet?.filter((connection)=>connection.status_accepted !== null)?.map((user,index )=>{
+            {authState.connectionRequet
+              ?.filter((connection)=>connection.status_accepted !== null)
+              ?.map((user,index )=>{
+              const profileUser = user.userId;
+              if (!profileUser) return null;
+
               return (
                <div
                   className={styles.userCard}
                   onClick={() => {
                     router.push(
-                      `/view_profile?username=${user.userId.username}`
+                      `/view_profile?username=${profileUser.username}`
                     );
                   }}
                 >
@@ -102,15 +118,19 @@ function Myconnection() {
                     }}
                   >
                     <div className={styles.profilePicture}>
-                      <img
-                        src={`${BASE_URL}uploads/${user.userId.profilePicture}`}
-                        alt="profilePicture"
-                        className=""
+                      <Avatar
+                        src={profileUser.profilePicture}
+                        name={profileUser.name}
+                        className={styles.connectionAvatar}
+                        initialClassName={styles.connectionAvatarInitials}
                       />
                     </div>
                     <div className={styles.userInfo}>
-                      <h3>{user.userId.name}</h3>
-                      <p className="">{user.userId.username}</p>
+                      <h3 style={{ display: "inline-flex", alignItems: "center" }}>
+                        {profileUser.name}
+                        <VerifiedBadge verified={profileUser.verified} size={16} />
+                      </h3>
+                      <p className="">{profileUser.username}</p>
                     </div>
 
                   

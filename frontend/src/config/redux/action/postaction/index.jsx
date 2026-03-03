@@ -31,28 +31,18 @@ export const createPost= createAsyncThunk("post/createPost",
             formData.append('token' ,localStorage.getItem('token'));
             formData.append('body',body);
             formData.append('media',file);
-            const response= clientServer.post("/post",formData ,{
+            const response = await clientServer.post("/post", formData, {
                 headers:{
                     'Content-Type':'multipart/form-data'
-
                 }
-
-
-            })
-
-
-            if(response.status==200){
+            });
+            if (response.status === 200) {
                 return thunkAPI.fulfillWithValue(response.data);
             }
-        else{
             return thunkAPI.rejectWithValue("Post creation failed");
         }
-
-
-
-        }
         catch(err){
-            return res.fulfillWithValue(err.response.data.message || "Failed to create post");      
+            return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to create post");
         }
     }
 )

@@ -3,7 +3,9 @@ import DashboardLayout from "@/layout/dasboardLayout";
 import UserLayout from "@/layout/userlayout";
 import React, { useEffect, useState } from "react";
 import styles from "./style.module.css";
-import { BASE_URL, clientServer } from "@/config";
+import { clientServer } from "@/config";
+import Avatar from "@/Component/Avatar";
+import VerifiedBadge from "@/Component/VerifiedBadge";
 import { useSelector, useDispatch } from "react-redux";
 import { getAboutUser } from "@/config/redux/action/authaction";
 import { allPosts } from "@/config/redux/action/postaction";
@@ -50,7 +52,7 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
     if (authState.user != undefined) {
       setuserProfile(authState.user);
       let post = postreducer.posts?.filter((post) => {
-        return post.userId.username === authState.user?.userId?.username;
+        return post.userId?.username === authState.user?.userId?.username;
       });
       setUserPosts(post);
     }
@@ -58,9 +60,9 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
 
   const uploadprofilePicture = async (file) => {
     const formData = new FormData();
-    formData.append("profile", file);
+    formData.append("profile_picture", file);
     formData.append("token", localStorage.getItem("token"));
-    const response = await clientServer.post("/update_profile", formData, {
+    const response = await clientServer.post("/update_profile_picture", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -107,30 +109,34 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
                   id="uploadprofilePicture"
                   style={{ display: "none" }}
                 />
-                <img
-                  src={`${BASE_URL}uploads/${userProfile.userId?.profilePicture}`}
-                  alt="Profile Picture"
+                <Avatar
+                  src={userProfile.userId?.profilePicture}
+                  name={userProfile.userId?.name}
                   className={styles.profilePic}
+                  initialClassName={styles.profilePicInitials}
                 />
               </div>
 
               <div className={styles.userInfoConnect}>
                 <div className={styles.userInfo}>
                   {/* <h2 className={styles.name}>{userProfile.userId?.name}</h2> */}
-                  <input
-                    type="text"
-                    className={styles.editname}
-                    value={userProfile.userId.name}
-                    onChange={(e) => {
-                      setuserProfile({
-                        ...userProfile,
-                        userId: { ...userProfile.userId, name: e.target.value },
-                      });
-                      setupdateProfileBtn(true);
-                    }}
-                  />
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                    <input
+                      type="text"
+                      className={styles.editname}
+                      value={userProfile.userId.name}
+                      onChange={(e) => {
+                        setuserProfile({
+                          ...userProfile,
+                          userId: { ...userProfile.userId, name: e.target.value },
+                        });
+                        setupdateProfileBtn(true);
+                      }}
+                    />
+                    <VerifiedBadge verified={userProfile.userId?.verified} size={20} />
+                  </span>
                   <p className={styles.headline}>
-                    {authState.user?.postwork[0]?.company || "@Academor"}
+                    {authState.user?.postwork?.[0]?.company || "@Academor"}
                     
                   </p>
                   <div className={styles.textarea_container}>

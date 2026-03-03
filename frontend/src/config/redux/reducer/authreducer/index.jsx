@@ -90,10 +90,9 @@ export const authreducer= createSlice({
             state.isError= false;
             state.isSuccess= true;
             state.profileFetch= true;
-            state.user= action.payload.userProfile;
-            state.connections= action.payload.connections;      
-            state.connectionRequet= action.payload.connectionRequet;
-            console.log("action payload in getAboutUser", state.user);
+            if (action.payload?.userProfile != null) state.user= action.payload.userProfile;
+            if (action.payload?.connections !== undefined) state.connections= action.payload.connections;
+            if (action.payload?.connectionRequet !== undefined) state.connectionRequet= action.payload.connectionRequet;
             state.message="User profile fetched successfully";
         })
         .addCase(getAboutUser.rejected,(state, action)=>{

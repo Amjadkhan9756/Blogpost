@@ -6,7 +6,9 @@ import { clientServer } from "@/config";
 import UserLayout from "@/layout/userlayout";
 import DashboardLayout from "@/layout/dasboardLayout";
 import styles from "./[username].module.css";
-import { BASE_URL } from "@/config";
+import { getImageUrl } from "@/config";
+import Avatar from "@/Component/Avatar";
+import VerifiedBadge from "@/Component/VerifiedBadge";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -41,10 +43,10 @@ export default function ViewProfile({ userProfile }) {
 
   useEffect(() => {
     let post = postreducer.posts?.filter((post) => {
-      return post.userId.username === router.query.username;
+      return post.userId?.username === router.query.username;
     });
     setUserPosts(post);
-  }, [postreducer.posts]);
+  }, [postreducer.posts, router.query.username]);
 
   useEffect(() => {
     if (
@@ -104,15 +106,19 @@ export default function ViewProfile({ userProfile }) {
 
           {/* Profile Header */}
           <div className={styles.header}>
-            <img
-              src={`${BASE_URL}uploads/${userProfile.userId?.profilePicture}`}
-              alt="Profile Picture"
+            <Avatar
+              src={userProfile.userId?.profilePicture}
+              name={userProfile.userId?.name}
               className={styles.profilePic}
+              initialClassName={styles.profilePicInitials}
             />
 
             <div className="userInfoConnect">
               <div className={styles.userInfo}>
-                <h2 className={styles.name}>{userProfile.userId?.name}</h2>
+                <h2 className={styles.name} style={{ display: "inline-flex", alignItems: "center" }}>
+                  {userProfile.userId?.name}
+                  <VerifiedBadge verified={userProfile.userId?.verified} size={20} />
+                </h2>
                 <p className={styles.headline}>
                   {userProfile.currentPost || "@Academor"}
                 </p>
@@ -160,10 +166,8 @@ export default function ViewProfile({ userProfile }) {
                   const response = await clientServer.get(
                     `/user/user_profile_download?id=${userProfile.userId?._id}`
                   );
-                  window.open(
-                    `${BASE_URL}uploads/${response.data.message}`,
-                    "_blank"
-                  );
+                  const url = getImageUrl(response.data.message);
+                  if (url) window.open(url, "_blank");
                   console.log(response.data.message);
                 }}
                 className={styles.profileDownload}

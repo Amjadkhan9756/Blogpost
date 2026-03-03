@@ -7,10 +7,26 @@ align-items: center;
 box-shadow:  10px 10px 10px 0px rgb(0, 0, 0,0.1);
 cursor: pointer;
 }
-.profilePicture> img{
-width: 4rem;
-border-radius: 50%;
+.profilePicture > img,
+.connectionAvatar,
+.connectionAvatarInitials {
+  width: 4rem;
+  height: 4rem;
+  min-width: 4rem;
+  min-height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
+.connectionAvatarInitials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 .myConnections{
 

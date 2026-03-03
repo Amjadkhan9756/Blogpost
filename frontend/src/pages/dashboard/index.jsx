@@ -14,9 +14,20 @@ import { getAboutUser } from "@/config/redux/action/authaction";
 import UserLayout from "@/layout/userlayout";
 import DashboardLayout from "@/layout/dasboardLayout";
 import styles from "./style.module.css";
-import { BASE_URL } from "@/config/index";
-import { all } from "axios";
+import { getImageUrl } from "@/config/index";
+import Avatar from "@/Component/Avatar";
+import VerifiedBadge from "@/Component/VerifiedBadge";
 import { resetpostId } from "@/config/redux/reducer/postreducer";
+
+function getInitials(name) {
+  if (!name || typeof name !== "string") return "?";
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase().slice(0, 2);
+  }
+  return name.slice(0, 2).toUpperCase();
+}
+
 function dashboard() {
   const dispatch = useDispatch();
   const postState = useSelector((state) => state.postsreducer);
@@ -64,11 +75,11 @@ function dashboard() {
             
             <div className={styles.wrapper}>
               <div className={styles.createPostContainer}>
-                {" "}
-                <img
-                  src={`${BASE_URL}uploads/${authState.user?.userId?.profilePicture}`}
-                  alt="Profile"
+                <Avatar
+                  src={authState.user?.userId?.profilePicture}
+                  name={authState.user?.userId?.name}
                   className={styles.userProfile}
+                  initialClassName={styles.avatarInitials}
                 />
                 <textarea
                   onChange={(e) => setPostContent(e.target.value)}
@@ -112,23 +123,37 @@ function dashboard() {
               <div className={styles.postContainer}>
                 {Array.isArray(postState.posts) &&
                   postState.posts.map((post) => {
+                    const hasUser = post.userId;
+                    const profilePicture = hasUser?.profilePicture;
+
                     return (
                       <div key={post._id} className={styles.singleCard}>
-                        <div   className={styles.singleCard_profileContainer}>
-                          <img style={{cursor:"pointer"}}  onClick={()=>{router.push(`/view_profile?username=${post.userId.username}`)}} 
-
-                            src={`${BASE_URL}uploads/${post.userId.profilePicture}`}
-                            alt="profilePicture" 
-                            name="profile"
-                          />
+                        <div className={styles.singleCard_profileContainer}>
+                          {hasUser && (
+                            <Avatar
+                              src={profilePicture}
+                              name={hasUser?.name}
+                              className={styles.avatarCircle}
+                              initialClassName={styles.avatarInitials}
+                              onClick={() => {
+                                if (hasUser?.username) {
+                                  router.push(
+                                    `/view_profile?username=${hasUser.username}`
+                                  );
+                                }
+                              }}
+                              aria-label={hasUser?.name}
+                            />
+                          )}
                           <div>
-                            <div   
-                            className={styles.postDeleteIconContainer}>
-                              <p style={{ fontWeight: "bold" }}>
-                                {post.userId.name}
+                            <div
+                              className={styles.postDeleteIconContainer}
+                            >
+                              <p style={{ fontWeight: "bold", display: "inline-flex", alignItems: "center" }}>
+                                {hasUser?.name || "Unknown User"}
+                                <VerifiedBadge verified={hasUser?.verified} size={16} />
                               </p>
-                              {post.userId._id ===
-                                authState.user.userId._id && (
+                              {hasUser?._id === authState.user.userId._id && (
                                 <div
                                   onClick={async () => {
                                     await dispatch(
@@ -156,24 +181,23 @@ function dashboard() {
                                 </div>
                               )}
                             </div>
-                            <p style={{ color: "grey" }}>
-                              @{post.userId.username}
+                            <p style={{ color: "grey", display: "inline-flex", alignItems: "center" }}>
+                              {hasUser?.username ? `@${hasUser.username}` : "@unknown"}
+                              <VerifiedBadge verified={hasUser?.verified} size={14} />
                             </p>
 
                             <p style={{ paddingTop: "1.3rem" }}>{post.body}</p>
 
                             <div className={styles.singleCard_image}>
-                             
-                             {post.media!== ""? 
-                              <img
-                                src={`${BASE_URL}uploads/${post.media}`}
-                                alt="media"
-                              />:<></>}
-                             
-                              {/* <img
-                                src={`${BASE_URL}/uploads/${post.media}`}
-                                alt="media"
-                              /> */}
+                              {getImageUrl(post.media) && (
+                                <img
+                                  src={getImageUrl(post.media)}
+                                  alt="Post media"
+                                  onError={(e) => {
+                                    e.target.style.display = "none";
+                                  }}
+                                />
+                              )}
                             </div>
                             
                               <div className= {styles.optionContainer}>
@@ -259,17 +283,30 @@ function dashboard() {
               <div className={styles.commentsScrollContainer}>
 
                 {postState.comments.map((comment, index)=>{
+                  const commentUser = comment.userId;
+                  const commentProfilePic = commentUser?.profilePicture;
+
                   return(
-                    <div className={styles.singleCommentContainer} >
+                    <div key={index} className={styles.singleCommentContainer} >
 
                       <div className={styles.singleCommentContainer_avtar}>
-                      <img   
-                      
-      style={{cursor:"pointer"}}  onClick={()=>{router.push(`/view_profile?username=${comment.userId.username}`)}} 
-                      
-                      src={`${BASE_URL}uploads/${comment.userId?.profilePicture}`}alt="avtar" className={styles.avtarImg} />
-                       <p style={{fontWeight:"500", fontSize:"1.1rem"}}>
-                        {comment.userId.name}
+                      {commentUser && (
+                        <Avatar
+                          src={commentProfilePic}
+                          name={commentUser?.name}
+                          className={styles.avatarCircle}
+                          initialClassName={styles.avatarInitials}
+                          onClick={() => {
+                            if (commentUser?.username) {
+                              router.push(`/view_profile?username=${commentUser.username}`);
+                            }
+                          }}
+                          aria-label={commentUser?.name}
+                        />
+                      )}
+                       <p style={{fontWeight:"500", fontSize:"1.1rem", display: "inline-flex", alignItems: "center"}}>
+                        {commentUser?.name || "Unknown User"}
+                        <VerifiedBadge verified={commentUser?.verified} size={14} />
                       </p>
                       </div>
                      <div className="">

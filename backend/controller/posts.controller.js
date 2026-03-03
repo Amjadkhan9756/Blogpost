@@ -1,5 +1,7 @@
 import User from "../models/user.model.js";
-import Post from "../models/posts.model.js"
+import Post from "../models/posts.model.js";
+import Comment from "../models/comments.model.js";
+import { getVerifiedUserIds } from "../utils/verified.js";
 
 
 export const activeCheck = async (req, res) => {
@@ -28,21 +30,23 @@ export const createPost = async (req, res) => {
     }
     catch (error) {
 
-        return res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: error.message });
 
     }
 }
 
 
-// get all posts
-
+// get all posts (attach verified badge for users with 600k+ total post likes)
 export const getAllPost = async (req, res) => {
-
     try {
-
         const posts = await Post.find().populate('userId', 'name username email profilePicture');
-        return res.status(200).json({ posts });
-
+        const verifiedIds = await getVerifiedUserIds();
+        const postsWithVerified = posts.map((p) => {
+            const po = p.toObject();
+            if (po.userId) po.userId.verified = verifiedIds.has(po.userId._id.toString());
+            return po;
+        });
+        return res.status(200).json({ posts: postsWithVerified });
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }
@@ -102,7 +106,7 @@ export const commentPost= async(req, res)=>{
         const newcomment = new Comment({
             userId:user._id,
             postId:post_id,
-            comment:comment,
+            body:comment,
         });
         await newcomment.save();
         return res.status(200).json({message:"comment created successfully !"});
@@ -117,12 +121,17 @@ export const commentPost= async(req, res)=>{
 export const get_comment_bypost= async(req, res)=>{
     const { post_id } = req.query;
     try {
-        // Fetch all comments for the given post_id
         const comments = await Comment.find({ postId: post_id }).populate('userId', 'name username profilePicture');
-        if (!comments) {
-            return res.json({ comments: [] });
-        }
-        return res.json({ comments });
+        const verifiedIds = await getVerifiedUserIds();
+        const list = (comments && comments.length)
+            ? comments.map((c) => {
+                const co = c.toObject();
+                co.comment = co.body;
+                if (co.userId) co.userId.verified = verifiedIds.has(co.userId._id.toString());
+                return co;
+              })
+            : [];
+        return res.json({ comments: list });
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }
@@ -145,8 +154,8 @@ export const destroyCommnet= async(req, res)=>{
         if(comment.userId.toString()!==user._id.toString()){
             return res.status(401).json({message:"you are not owner of this comment"});
         }
-        await  deleteOne({"_id":comment_id});
-        res.status(200).json({message:"comment deleted successfully !"});
+        await Comment.deleteOne({"_id":comment_id});
+        return res.status(200).json({message:"comment deleted successfully !"});
 
 
     }catch(err){

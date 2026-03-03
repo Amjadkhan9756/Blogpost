@@ -10,8 +10,11 @@ const educationSchema = new mongoose.Schema({
         type: String,
         default: '',
     },
-
     fieldOfStudy: {
+        type: String,
+        default: ''
+    },
+    fieldStudy: {
         type: String,
         default: ''
     }

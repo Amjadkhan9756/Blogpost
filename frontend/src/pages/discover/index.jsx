@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllUser } from "@/config/redux/action/authaction";
-import {BASE_URL } from "@/config/index";
+import { getImageUrl } from "@/config/index";
+import Avatar from "@/Component/Avatar";
+import VerifiedBadge from "@/Component/VerifiedBadge";
 import styles from "./style.module.css";
 import { Router } from "next/router";
 import { useRouter } from "next/router";
@@ -29,15 +31,25 @@ function Discover() {
 
             <h1>Discover</h1>
             {authState.all_profiles_fetched && authState.all_profiles.map((users)=>{
-                
-                return(
+                const profileUser = users.userId;
+                if (!profileUser) return null;
 
-                    <div  onClick={()=>{router.push(`/view_profile?username=${users.userId.username}`)}} className={styles.userCard} key={users._id}>
-                    <img src={`${BASE_URL}uploads/${users.userId?.profilePicture}`}alt="avtar"  style={{width:"10%"}}/>
+                return(
+                
+                    <div  onClick={()=>{router.push(`/view_profile?username=${profileUser.username}`)}} className={styles.userCard} key={users._id}>
+                    <Avatar
+                      src={profileUser?.profilePicture}
+                      name={profileUser?.name}
+                      className={styles.discoverAvatar}
+                      initialClassName={styles.discoverAvatarInitials}
+                    />
                    <div className="">
 
-                     <h3 className={styles.userName}>{users.userId.name}</h3>
-                    <p style={{color:"gray"}} className={styles.userName}>{users.userId.username}</p>
+                     <h3 className={styles.userName} style={{ display: "inline-flex", alignItems: "center" }}>
+                      {profileUser.name}
+                      <VerifiedBadge verified={profileUser.verified} size={16} />
+                    </h3>
+                    <p style={{color:"gray"}} className={styles.userName}>{profileUser.username}</p>
                    </div>
                    
                     <hr />

@@ -5,7 +5,7 @@ const connectionsRequest = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    connnectionId: {
+    connectionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },

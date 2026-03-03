@@ -1,4 +1,5 @@
 import { Router } from "express";
+import path from "path";
 import { activeCheck } from  "../controller/posts.controller.js";
 import multer from "multer";
 import { commentPost,get_comment_bypost, createPost, destroyCommnet, destroyPost, getAllPost, incrementLikes } from "../controller/posts.controller.js";

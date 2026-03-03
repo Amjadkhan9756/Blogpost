@@ -12,6 +12,8 @@ import { sendConnectionRequest } from "../controller/user.controller.js";
 import { getMyconnectionRequest } from "../controller/user.controller.js";
 import { whataremyconnection } from "../controller/user.controller.js";
 import { acceptconnectionrequest } from "../controller/user.controller.js";
+import { getProfileByUsername } from "../controller/user.controller.js";
+import { wipeAllUserData } from "../controller/user.controller.js";
 
 const router = Router();
 
@@ -44,8 +46,7 @@ router.route('/register').post(register);
 router.route("/login").post(login);
 router.route("/user_update").post(updateuserprofile);
 router.route("/get_user_update_profile").get(getuserupdateprofile);
-
-
+router.route("/user/get_user_profile_based_on_username").get(getProfileByUsername);
 
 router.route("/update_Profile_Data").post(updateProfileData);
 router.route("/user/get_allusers").get(getUserProfile);
@@ -61,6 +62,7 @@ router.route("/user/send_connection_request").post(sendConnectionRequest);
 router.route("/user/get_connection_request").get( getMyconnectionRequest);
 router.route("/user/user_connection_request").get(whataremyconnection);
 router.route("/user/accept_connection_request").post(acceptconnectionrequest);
+router.route("/admin/wipe_all_user_data").delete(wipeAllUserData).get(wipeAllUserData);
 
 
 
