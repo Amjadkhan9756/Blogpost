@@ -26,7 +26,7 @@ const Profile = () => {
      dispatch(allPosts());
 
    
-  }, []);
+  }, [])
 
   const[inputData, setinputData]= useState({company:"", position: "", year:""});
 const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStudy:""})
@@ -124,7 +124,7 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
                     <input
                       type="text"
                       className={styles.editname}
-                      value={userProfile.userId.name}
+                      value={userProfile.userId?.name || ""}
                       onChange={(e) => {
                         setuserProfile({
                           ...userProfile,
@@ -143,15 +143,12 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
                     <textarea
                       name=""
                       id=""
-                      value={
-                        userProfile.bio
-  
-                      }
+                      value={userProfile.bio || ""}
                       onChange={(e) => {
                         setuserProfile({ ...userProfile, bio: e.target.value });
                         
                       }}
-                      rows={Math.max(3, Math.ceil(userProfile.bio.length/80))}
+                      rows={Math.max(3, Math.ceil((userProfile.bio || "").length/80))}
                       style={{  }}
                     />
                   </div>
@@ -240,7 +237,7 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
 
 
 
-        {isOpenModal !=""&&
+        {isOpenModal &&
       
           <div 
           
@@ -271,7 +268,7 @@ className={styles.updateProfileBtnEX}>Add Work
 
 
 
- {isOpenModalForEdu !=""&&
+ {isOpenModalForEdu &&
       
           <div 
           

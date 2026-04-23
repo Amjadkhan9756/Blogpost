@@ -9,7 +9,6 @@ import { getImageUrl } from "@/config/index";
 import Avatar from "@/Component/Avatar";
 import VerifiedBadge from "@/Component/VerifiedBadge";
 import styles from "./style.module.css";
-import { Router } from "next/router";
 import { useRouter } from "next/router";
 
 

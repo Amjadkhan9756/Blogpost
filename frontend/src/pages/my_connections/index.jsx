@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./style.module.css";
 import { useRouter } from "next/router";
-import { connection } from "next/server";
+
 import {acceptConnectionRequest} from  "@/config/redux/action/authaction";
 
 function Myconnection() {

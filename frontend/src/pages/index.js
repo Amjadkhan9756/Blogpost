@@ -32,7 +32,7 @@ const router= useRouter();
          </div>
          </div>
       <div className={styles.container_right}>
-        <img  style={{width:"95%"}} src="images/banner.png" alt="connection_img" />
+        <Image  style={{width:"95%"}} src="/images/banner.png" alt="connection_img" width={500} height={400} />
       </div>
     </div>
 

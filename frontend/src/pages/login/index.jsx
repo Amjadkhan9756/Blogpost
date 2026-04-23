@@ -49,7 +49,7 @@ function LoginComponent() {
     },[]);
    useEffect(()=>{
     dispatch(emptyMessage());
-   }, [isloggedMethod]);
+   }, [isloggedMethod, dispatch]);
   
 
     return ( 

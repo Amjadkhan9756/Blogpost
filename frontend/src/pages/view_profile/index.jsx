@@ -1,7 +1,7 @@
 
 
 import React from "react";
-import { useSearchParams } from "next/navigation";
+
 import { clientServer } from "@/config";
 import UserLayout from "@/layout/userlayout";
 import DashboardLayout from "@/layout/dasboardLayout";
