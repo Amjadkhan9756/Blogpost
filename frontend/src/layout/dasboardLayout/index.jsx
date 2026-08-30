@@ -114,7 +114,7 @@ function DashboardLayout({ children }) {
           <h3>Top profiles. </h3>
 
           {authState.all_profiles_fetched &&
-            authState.all_profiles.map((profile) => {
+            authState.all_s.map((profile) => {
               return (
                 <div>
                   <p>{profile.userId.name}</p>

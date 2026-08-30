@@ -16,7 +16,7 @@ function NavbarComponent() {
             router.push("/");
           }}
         >
-          Pro Connect
+          socialBlogSite
         </h2>
         <div className={styles.navBarOptionContainer}>
 
