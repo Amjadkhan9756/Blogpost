@@ -1,7 +1,7 @@
 import styles from "./style.module.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { setisTokenThere } from "@/config/redux/reducer/authreducer";
+import { logoutUser, setisTokenThere } from "@/config/redux/reducer/authreducer";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 function DashboardLayout({ children }) {
@@ -14,6 +14,12 @@ function DashboardLayout({ children }) {
     }
     dispatch(setisTokenThere());
   }, []);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
 
   return (
     <div className={styles.container}>
@@ -83,10 +89,28 @@ function DashboardLayout({ children }) {
 
             <p>My Connections</p>
           </div>
+
+          <div onClick={handleLogout} className={styles.sidebarOption}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+              />
+            </svg>
+            <p>Sign out</p>
+          </div>
         </div>
 
         <div className={styles.homeContainer_feedContainer}>{children}</div>
-        <div className={styles.homeContainer_extraContainer}>
+        {/* <div className={styles.homeContainer_extraContainer}>
           <h3>Top profiles. </h3>
 
           {authState.all_profiles_fetched &&
@@ -97,7 +121,7 @@ function DashboardLayout({ children }) {
                 </div>
               );
             })}
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.mobileNavBar}>

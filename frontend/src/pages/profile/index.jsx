@@ -17,30 +17,30 @@ const Profile = () => {
   const authState = useSelector((state) => state.auth);
   const [userProfile, setuserProfile] = useState({});
   const [userPosts, setUserPosts] = useState([]);
-  const[isOpenModal, setisOpenModal]= useState(false);
-  const [Expreince, setExpreince]= useState();
+  const [isOpenModal, setisOpenModal] = useState(false);
+  const [Expreince, setExpreince] = useState();
   const [updateProfileBtn, setupdateProfileBtn] = useState(true);
- const[isOpenModalForEdu , setisOpenModalForEdu ]= useState(false);
+  const [isOpenModalForEdu, setisOpenModalForEdu] = useState(false);
   useEffect(() => {
-    dispatch(getAboutUser({ token:localStorage.getItem("token")}));
-     dispatch(allPosts());
+    dispatch(getAboutUser({ token: localStorage.getItem("token") }));
+    dispatch(allPosts());
 
-   
+
   }, [])
 
-  const[inputData, setinputData]= useState({company:"", position: "", year:""});
-const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStudy:""})
+  const [inputData, setinputData] = useState({ company: "", position: "", year: "" });
+  const [inputDataEdu, setinputDataEdu] = useState({ school: "", degree: "", fieldStudy: "" })
 
-  const handleInputWorkChnage= async(e)=>{
-   const {name, value} = e.target;
-   setinputData({...inputData, [name]:value})
+  const handleInputWorkChnage = async (e) => {
+    const { name, value } = e.target;
+    setinputData({ ...inputData, [name]: value })
 
 
 
   }
-   const handleInputWorkChnageEdu= async(e)=>{
-   const {name, value} = e.target;
-   setinputDataEdu({...inputDataEdu, [name]:value})
+  const handleInputWorkChnageEdu = async (e) => {
+    const { name, value } = e.target;
+    setinputDataEdu({ ...inputDataEdu, [name]: value })
 
 
 
@@ -48,7 +48,7 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
 
   useEffect(() => {
 
-    console.log(" the company is that here please check that",authState.user)
+    console.log(" the company is that here please check that", authState.user)
     if (authState.user != undefined) {
       setuserProfile(authState.user);
       let post = postreducer.posts?.filter((post) => {
@@ -67,7 +67,7 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
         "Content-Type": "multipart/form-data",
       },
     });
-   await  dispatch(getAboutUser({ token:localStorage.getItem("token")}));
+    await dispatch(getAboutUser({ token: localStorage.getItem("token") }));
   };
 
   const updateProfileData = async () => {
@@ -83,7 +83,7 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
       postwork: userProfile.postwork,
       education: userProfile.education,
     });
-    await dispatch(getAboutUser({ token:localStorage.getItem("token")}));
+    await dispatch(getAboutUser({ token: localStorage.getItem("token") }));
     setupdateProfileBtn(false);
   };
   return (
@@ -137,7 +137,7 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
                   </span>
                   <p className={styles.headline}>
                     {authState.user?.postwork?.[0]?.company || "@Academor"}
-                    
+
                   </p>
                   <div className={styles.textarea_container}>
                     <textarea
@@ -146,10 +146,10 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
                       value={userProfile.bio || ""}
                       onChange={(e) => {
                         setuserProfile({ ...userProfile, bio: e.target.value });
-                        
+
                       }}
-                      rows={Math.max(3, Math.ceil((userProfile.bio || "").length/80))}
-                      style={{  }}
+                      rows={Math.max(3, Math.ceil((userProfile.bio || "").length / 80))}
+                      style={{}}
                     />
                   </div>
                   {/* {connection button} */}
@@ -188,10 +188,10 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
               ) : (
                 <p>No postwork..... posted</p>
               )}
-              <button    
-              
-  onClick={()=>{setisOpenModal(true)}}              
-              className={styles.addExpreince}>Add Experience</button>
+              <button
+
+                onClick={() => { setisOpenModal(true) }}
+                className={styles.addExpreince}>Add Experience</button>
             </div>
 
             {/* Education Section */}
@@ -208,12 +208,12 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
               ) : (
                 <p>Bachelor in computer Science</p>
               )}
-              <button    
-              
-  onClick={()=>{setisOpenModalForEdu(true)}}              
-              className={styles.addExpreinceEdu}>Add Education</button>
+              <button
+
+                onClick={() => { setisOpenModalForEdu(true) }}
+                className={styles.addExpreinceEdu}>Add Education</button>
             </div>
-                {/* <button    
+            {/* <button    
               
   onClick={()=>{setisOpenModalForEdu(true)}}              
               className={styles.addExpreinceEdu}>Add Education</button> */}
@@ -238,27 +238,27 @@ const[inputDataEdu, setinputDataEdu]= useState({school:"", degree: "", fieldStud
 
 
         {isOpenModal &&
-      
-          <div 
-          
-          onClick={()=>{setisOpenModal(false)}}
-          className={styles.commentsContainer}>
-
 
           <div
-            onClick={(e)=>e.stopPropagation()}
-            className={styles.AllCommentsContainer}>
-          <input  onChange={handleInputWorkChnage}  name="company" className= {styles.addExpreinceInput } type="text"  placeholder="Enter Company"/>
-          <input  onChange={handleInputWorkChnage}  name="position" className= {styles.addExpreinceInput } type="text"  placeholder="Enter Position "/>
-          <input  onChange={handleInputWorkChnage}  name="years" className= {styles.addExpreinceInput } type="Number"  placeholder="Enter Year "/>
-<div   
 
- onClick={()=>{setuserProfile({...userProfile,postwork:[...userProfile.postwork, inputData]}) ,setisOpenModal(false)} }
-className={styles.updateProfileBtnEX}>Add Work    
-</div>
+            onClick={() => { setisOpenModal(false) }}
+            className={styles.commentsContainer}>
+
+
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className={styles.AllCommentsContainer}>
+              <input onChange={handleInputWorkChnage} name="company" className={styles.addExpreinceInput} type="text" placeholder="Enter Company" />
+              <input onChange={handleInputWorkChnage} name="position" className={styles.addExpreinceInput} type="text" placeholder="Enter Position " />
+              <input onChange={handleInputWorkChnage} name="years" className={styles.addExpreinceInput} type="Number" placeholder="Enter Year " />
+              <div
+
+                onClick={() => { setuserProfile({ ...userProfile, postwork: [...userProfile.postwork, inputData] }), setisOpenModal(false) }}
+                className={styles.updateProfileBtnEX}>Add Work
+              </div>
             </div>
           </div>
-}
+        }
 
 
 
@@ -268,28 +268,28 @@ className={styles.updateProfileBtnEX}>Add Work
 
 
 
- {isOpenModalForEdu &&
-      
-          <div 
-          
-          onClick={()=>{setisOpenModalForEdu(false)}}
-          className={styles.commentsContainer}>
-
+        {isOpenModalForEdu &&
 
           <div
-            onClick={(e)=>e.stopPropagation()}
-            className={styles.AllCommentsContainer}>
-          <input  onChange={handleInputWorkChnageEdu}  name="school" className= {styles.addExpreinceInput } type="text"  placeholder="Enter School"/>
-          <input  onChange={handleInputWorkChnageEdu}  name="degree" className= {styles.addExpreinceInput } type="text"  placeholder="Enter degree "/>
-          <input  onChange={handleInputWorkChnageEdu}  name="fieldStudy" className= {styles.addExpreinceInput } type="text"  placeholder="Enter Fieldstudy "/>
-<div   
 
- onClick={()=>{setuserProfile({...userProfile,education:[...userProfile.education, inputDataEdu]}) ,setisOpenModalForEdu(false)} }
-className={styles.updateProfileBtnEX}>Add Education...    
-</div>
+            onClick={() => { setisOpenModalForEdu(false) }}
+            className={styles.commentsContainer}>
+
+
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className={styles.AllCommentsContainer}>
+              <input onChange={handleInputWorkChnageEdu} name="school" className={styles.addExpreinceInput} type="text" placeholder="Enter School" />
+              <input onChange={handleInputWorkChnageEdu} name="degree" className={styles.addExpreinceInput} type="text" placeholder="Enter degree " />
+              <input onChange={handleInputWorkChnageEdu} name="fieldStudy" className={styles.addExpreinceInput} type="text" placeholder="Enter Fieldstudy " />
+              <div
+
+                onClick={() => { setuserProfile({ ...userProfile, education: [...userProfile.education, inputDataEdu] }), setisOpenModalForEdu(false) }}
+                className={styles.updateProfileBtnEX}>Add Education...
+              </div>
             </div>
           </div>
-}
+        }
 
 
 

@@ -54,6 +54,6 @@ color :rgb(3,93,183,0.903);
 }
 .btnConnected{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     flex-direction: row;
 }
