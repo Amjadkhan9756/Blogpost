@@ -21,7 +21,9 @@ const Profile = () => {
   const [Expreince, setExpreince] = useState();
   const [updateProfileBtn, setupdateProfileBtn] = useState(true);
   const [isOpenModalForEdu, setisOpenModalForEdu] = useState(false);
+
   useEffect(() => {
+
     dispatch(getAboutUser({ token: localStorage.getItem("token") }));
     dispatch(allPosts());
 
@@ -166,13 +168,13 @@ const Profile = () => {
             )}
 
             {/* About Section */}
-            {/* <div className={styles.section}>
+            <div className={styles.section}>
               <h3>About</h3>
               <p>
                 {userProfile.about ||
                   " I am a passionate Full Stack Developer with a strong foundation in Java and expertise in Data Structures and Algorithms (DSA)Skilled in building scalable, responsive, and efficient web applications, I enjoy solving complex problems and bringing creative solutions to life. I have hands-on experience with both front-end and back-end technologies, and I am committed to writing clean, maintainable code that drives real-world impact,, "}
               </p>
-            </div> */}
+            </div>
 
             {/* Experience Section */}
             <div className={styles.section}>
@@ -213,9 +215,9 @@ const Profile = () => {
                 onClick={() => { setisOpenModalForEdu(true) }}
                 className={styles.addExpreinceEdu}>Add Education</button>
             </div>
-            {/* <button    
-              
-  onClick={()=>{setisOpenModalForEdu(true)}}              
+            {/* <button
+
+              onClick={() => { setisOpenModalForEdu(true) }}
               className={styles.addExpreinceEdu}>Add Education</button> */}
           </div>
         )}
