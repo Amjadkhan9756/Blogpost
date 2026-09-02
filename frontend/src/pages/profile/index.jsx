@@ -89,7 +89,7 @@ const Profile = () => {
     setupdateProfileBtn(false);
   };
   return (
-    <UserLayout>
+    <UserLayout >
       <DashboardLayout>
         {authState.user && userProfile?.userId && (
           <div className={styles.profileContainer}>
@@ -138,7 +138,7 @@ const Profile = () => {
                     <VerifiedBadge verified={userProfile.userId?.verified} size={20} />
                   </span>
                   <p className={styles.headline}>
-                    {authState.user?.postwork?.[0]?.company || "@Academor"}
+                    {authState.user?.postwork?.[0]?.company }
 
                   </p>
                   <div className={styles.textarea_container}>
@@ -208,7 +208,7 @@ const Profile = () => {
                   </div>
                 ))
               ) : (
-                <p>Bachelor in computer Science</p>
+                <p></p>
               )}
               <button
 
@@ -221,23 +221,6 @@ const Profile = () => {
               className={styles.addExpreinceEdu}>Add Education</button> */}
           </div>
         )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         {isOpenModal &&
 
@@ -261,14 +244,6 @@ const Profile = () => {
             </div>
           </div>
         }
-
-
-
-
-
-
-
-
 
         {isOpenModalForEdu &&
 

@@ -1,406 +1,445 @@
+/* ==========================================================================
+   Design tokens
+   Palette: cool slate canvas + ink text + deep teal accent (deliberately
+   not LinkedIn blue, not the generic warm-terracotta/cream combo).
+   Type: Fraunces (serif) for name/section headers, Inter for everything
+   else — an editorial, professional feel rather than default SaaS sans.
+   ========================================================================== */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap'); */
+
 .profileContainer {
-  max-width: 95%;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 30px;
+  background-color: red;
+  --ink: #16181d;
+  --slate: #5b6470;
+  --slate-light: #8b93a0;
+  --canvas: #e4e8ea;
+  --card: #ffffff;
+  --border: #e2e5e9;
+  --accent: #0e6b5c;
+  --accent-soft: #2f8f7c;
+  --accent-hover: #0a5347;
+  --accent-tint: #e6f0ee;
+
+  --neon: #9aff00;
+  --btn-dark: #14170f;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-pill: 999px;
+}
+
+/* Page background sits behind the card — a quiet, warm-grey field with a
+   faint radial glow of the accent color, so the white card reads as a
+   raised sheet rather than floating on stock browser white.
+   Implemented as a fixed pseudo-element (rather than styling `body`
+   directly) so the selector stays scoped/local for CSS Modules. */
+.profileContainer::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1100px 520px at 15% -10%, rgba(14, 107, 92, 0.07), transparent 60%),
+    var(--canvas);
+}
+
+/* ==========================================================================
+   Container / banner
+   ========================================================================== */
+
+.profileContainer {
+  max-width: 680px;
+  margin: 2rem auto;
+  background: var(--card);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 2px rgba(22, 24, 29, 0.04), 0 12px 32px rgba(22, 24, 29, 0.09);
+  font-family: var(--font-body);
+  color: var(--ink);
+  position: relative;
 }
 
 .banner {
-  height: 230px;
-  background: linear-gradient(to right, #0077b5, #004182);
- width: 100%;
-
-  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+  height: 168px;
+  width: 100%;
+  background:
+    radial-gradient(480px 240px at 82% 0%, rgba(255, 255, 255, 0.14), transparent 65%),
+    linear-gradient(155deg, #0a2e28 0%, #0e6b5c 52%, #3fa38c 100%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 30px;
+  border-radius: 0; /* container already clips corners */
 }
 
+/* ==========================================================================
+   Header / avatar
+   ========================================================================== */
 
 .header {
+    background-color: oklch(98.6% 0.031 120.757);
+
   display: flex;
-  align-items: center;
-  padding: 20px;
+  align-items: flex-start;
   gap: 20px;
-         position: relative; 
-          align-items: flex-start;
-          margin-bottom: 1.5rem;
+  padding: 0 24px 20px;
+  position: relative;
+  margin-bottom: 0.5rem;
 }
-
-
-
-
 
 .profilePic,
 .profilePicInitials {
-  width: 120px;
-  height: 120px;
-  min-width: 120px;
-  min-height: 120px;
+  width: 112px;
+  height: 112px;
+  min-width: 112px;
+  min-height: 112px;
   border-radius: 50%;
-  border: 4px solid white;
+  border: 4px solid var(--card);
   object-fit: cover;
-  margin-top: -60px;
+  margin-top: -56px;
   position: relative;
-  top: -70px;
+  z-index: 2;
 }
 
 .profilePic {
-  background: #eee;
+  background: var(--canvas);
 }
 
 .profilePicInitials {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: white;
-  font-weight: 700;
+  background: linear-gradient(135deg, #0e6b5c 0%, #123b34 100%);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: 2rem;
   text-transform: uppercase;
 }
 
-
-.profile_overlay{
-
- width: 120px;
-  height: 120px;
+.profile_overlay {
+  width: 112px;
+  height: 112px;
   border-radius: 50%;
-  border: 4px solid white;
-  object-fit: cover;
-  margin-top: -60px;
-  background: #eee;
-     position: relative;
-     transition: all 0.4s;
-     z-index: 4;
-     color: white;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     opacity: 0.0;
-        user-select: none;
-  pointer-events: auto;
+  border: 4px solid var(--card);
+  margin-top: -56px;
+  position: relative;
+  z-index: 4;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.55);
+  transition: opacity 0.25s ease;
+  cursor: pointer;
+}
 
+.profile_overlay:hover {
+  opacity: 1;
+}
 
-
-    }
-    #uploadprofilePicture{
-      display: none;
-    }
-
-    .profile_overlay:hover{
-
-      opacity: 0.8;
-      background: black;
-   
-
-    }
-
-
-
+#uploadprofilePicture {
+  display: none;
+}
 
 .userInfo {
   flex: 1;
+  padding-top: 12px;
 }
 
 .name {
-  font-size: 24px;
+  font-family: var(--font-display);
+  font-size: 30px;
   font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
   margin: 0;
+  color: var(--ink);
 }
 
 .headline {
-  font-size: 16px;
-  color: #555;
-  margin: 4px 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--slate);
+  margin: 6px 0 0;
 }
 
 .bio {
-  font-size: 1.1rem;
-  color: hsl(0, 8%, 21%);
-  font-weight: 500;
-}
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.55;
+} 
+
+/* ==========================================================================
+   Sections / cards
+   ========================================================================== */
 
 .section {
-  padding: 20px;
-  border-top: 1px solid #eee;
+  background-color: oklch(98.6% 0.031 120.757);
+  padding: 20px 24px;
+  border-top: 1px solid var(--border);
 }
 
 .section h3 {
-  margin-bottom: 10px;
-  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.005em;
+  margin: 0 0 14px;
+  padding-left: 0;
+  color: var(--ink);
+  border-left: none;
+}
+
+.section h3::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 24px;
+  background: var(--accent);
+  border-radius: 2px;
 }
 
 .card {
-  padding: 10px 0;
+  padding: 12px 0;
+}
+
+.card + .card {
+  border-top: 1px solid var(--border);
 }
 
 .card h4 {
   margin: 0;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.003em;
+  color: var(--ink);
 }
 
 .card p {
-  margin: 2px 0;
-  color: #555;
-  font-size: 14px;
+  margin: 3px 0;
+  color: var(--slate);
+  font-size: 13.5px;
 }
 
 .notFound {
-  padding: 50px;
+  padding: 60px 24px;
   text-align: center;
-  color: #888;
+  color: var(--slate-light);
+  font-family: var(--font-body);
 }
 
+/* ==========================================================================
+   Connect button + editable name
+   ========================================================================== */
 
-.userInfoConnect{
+.userInfoConnect {
   position: relative;
 }
 
-.sendConnectionContainer{
-  margin-top: 2rem;
-  padding-bottom: 3rem;
-  margin-left: 0;
-        position: absolute;
-        top: 5.8rem;
-          left: 1rem;
-           width: 110px; /* same as profilePic */
-           text-align: center
-  
-  
-
+.sendConnectionContainer {
+  position: absolute;
+  top: 4.6rem;
+  left: 24px;
+  width: 112px;
+  text-align: center;
 }
 
-
-
-
-
-.sendConnectionContainer>button{
-  border: 1px solid rgb( 0, 119, 181);
-  background-color: rgb( 0, 119, 181);
-  color: white;
-  height: 2rem;
-  width: 6rem;
-  border-radius: 20px ;
-          width: 100%;
-    border-radius: 20px;
-    border: none;
-    background: #0a66c2;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
- 
-  
-
+.sendConnectionContainer > button {
+  width: 100%;
+  height: 2.3rem;
+  border: 1.5px solid var(--neon);
+  border-radius: var(--radius-pill);
+  background: var(--btn-dark);
+  color: var(--neon);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(154, 255, 0, 0);
+  transition: box-shadow 0.2s ease, background 0.2s ease, transform 0.15s ease;
 }
 
+.sendConnectionContainer > button:hover {
+  background: #1a1f16;
+  box-shadow: 0 0 14px rgba(154, 255, 0, 0.55), 0 0 2px rgba(154, 255, 0, 0.9);
+  transform: translateY(-1px);
+}
 
+.sendConnectionContainer > button:active {
+  transform: translateY(0);
+  box-shadow: 0 0 8px rgba(154, 255, 0, 0.4);
+}
 
-
-
-
-
-.userInfoConnect input{
+.userInfoConnect input {
   outline: none;
-  border-style: none;
-
-
-}
-.editname{
-
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-.updateProfileBtn{
- border: 1px solid rgb( 0, 119, 181);
-  background-color: rgb( 0, 119, 181);
-  color: white;
-  height: 2rem;
-   
-  
-   border-radius: 20px ;
-         
-    border-radius: 20px;
-    border: none;
-    background: #0a66c2;
-    color: #fff;
-    cursor: pointer;
-width: 8rem;
-
-text-align: center;
-margin-inline: 1rem;
-margin-bottom: 1rem; 
-display: flex;
-justify-content: center;
-flex-direction: column;
-
-
-
-}
-
-
-
-.updateProfileBtnEX{
- border: 1px solid rgb( 0, 119, 181);
-  background-color: rgb( 0, 119, 181);
-  color: white;
-  height: 2rem;
-   
-  
-   border-radius: 20px ;
-         
-    border-radius: 10px;
-    border: none;
-    background: #0a66c2;
-    color: #fff;
-    cursor: pointer;
-width: 8rem;
-
-text-align: center;
-margin-inline: 1rem;
-margin-bottom: 1rem; 
-margin-left: 3.7px;
-display: flex;
-justify-content: center;
-flex-direction: column;
-margin: 0.3rem;
-
-}
-
-
-
-
-
-
-.textarea_container textarea{
-/* width: 50rem; */
-/* border: none;
-outline: none;
-font-size: 1.1rem;
-font-family: "poppins" !important;
-display: flex;
-flex-direction: row; */
-
-
-
-
-
-
-
-
-width: 100%;          /* take full available width */
-  max-width: 50rem;     /* limit width on big screens */
   border: none;
-  outline: none;
-  font-size: 1.1rem;
-  font-family: "Poppins", sans-serif !important;
-  resize: vertical;     /* allow user to resize if needed */
-  line-height: 1.5;
-
-
+  font-family: var(--font-body);
 }
 
+.editname {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink);
+}
 
+.updateProfileBtn,
+.updateProfileBtnEX {
+  border: 1.5px solid var(--neon);
+  background: var(--btn-dark);
+  color: var(--neon);
+  height: 2.2rem;
+  width: 8rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.3rem;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
 
+.updateProfileBtn:hover,
+.updateProfileBtnEX:hover {
+  background: #1a1f16;
+  box-shadow: 0 0 14px rgba(154, 255, 0, 0.55), 0 0 2px rgba(154, 255, 0, 0.9);
+}
+
+.updateProfileBtn:active,
+.updateProfileBtnEX:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   Text areas / add buttons
+   ========================================================================== */
+
+.textarea_container textarea {
+  width: 100%;
+  max-width: 50rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  outline: none;
+  padding: 10px 12px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  resize: vertical;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.textarea_container textarea:focus {
+  border-color: var(--accent);
+}
 
 @media only screen and (max-width: 600px) {
   .textarea_container textarea {
-    width: 100%;       /* full width on mobile */
-    max-width: 100%;   /* don’t exceed screen */
+    width: 100%;
+    max-width: 100%;
     font-size: 1rem;
   }
 }
 
-
-
-
-
-
-
-.addExpreince{
-
-border-style: dotted;
-padding-inline: 1.3rem;
-padding-block: .5rem;
-border: white;
-border: 1px dotted  silver;
-border-radius: 1rem;
-cursor: pointer;
+.addExpreince,
+.addExpreinceEdu {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px dashed #a3adb8;
+  border-radius: 12px;
+  background: oklch(97.9% 0.021 166.113);
+  box-shadow: 2px 3px  #0a5347;
+  cursor: pointer;
+  color: #4c5562;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
-.addExpreinceEdu{
-
-border-style: dotted;
-padding-inline: 1.3rem;
-padding-block: .5rem;
-border: white;
-border: 1px dotted  silver;
-border-radius: 1rem;
-cursor: pointer;
-margin-bottom: 2rem;
+.addExpreinceEdu {
+  margin-bottom: 2rem;
 }
 
+.addExpreince:hover,
+.addExpreinceEdu:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(14, 107, 92, 0.04);
+}
 
-.commentsContainer{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: 20;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.7);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-   display: flex;
-   justify-content: center;
-    
+.addExpreince:active,
+.addExpreinceEdu:active {
+  transform: scale(0.99);
+}
 
+/* ==========================================================================
+   Comments modal
+   ========================================================================== */
 
-   }
+.commentsContainer {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  background: rgba(22, 24, 29, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  
-
-   .AllCommentsContainer{
-    width: 40vw;
-    height: fit-content;
-    background: white;
-    position :relative;
-    padding: 1.4rem;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-  border-radius: 10px;
-
+.AllCommentsContainer {
+  width: 40vw;
+  min-width: 320px;
+  height: fit-content;
+  background: var(--card);
+  position: relative;
+  padding: 1.4rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-    
+  font-family: var(--font-body);
+}
 
-   } 
-   .addExpreinceInput{
+.addExpreinceInput {
+  padding-inline: 1.3rem;
+  padding-block: 0.7rem;
+  outline: none;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  width: 90%;
+  margin: 0.3rem;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
 
-padding-inline: 1.3rem;
-padding-block: .7rem;
-outline: none;
-border-radius: 10px;
-border: 1px solid silver;
-width:90%;
-margin: 0.3rem;
+.addExpreinceInput:focus {
+  border-color: var(--accent);
+}
 
+@media only screen and (max-width: 600px) {
+  .AllCommentsContainer {
+    width: 90vw;
+  }
 
-   } 
-
-
-   @media   only screen and (max-width:600px) {
-
-    .AllCommentsContainer >.addExpreinceInput {
-      width: 7rem;
-      /* margin-right: 10px; */
-
-
-    }
-    
-   }
+  .AllCommentsContainer > .addExpreinceInput {
+    width: 100%;
+  }
+}
