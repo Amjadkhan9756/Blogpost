@@ -38,7 +38,13 @@ function NavbarComponent() {
               <p
 
                 onClick={() => { router.push("/profile") }}
-                style={{ fontWeight: "bold", cursor: "pointer" }}>profile</p>
+                style={{ 
+                  fontWeight: "bold",
+                   cursor: "pointer" ,
+                    backgroundColor:"red",
+                    
+
+                 }}>profile</p>
             </div>
 
           }
