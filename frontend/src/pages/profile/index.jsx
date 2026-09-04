@@ -22,6 +22,10 @@ const Profile = () => {
   const [updateProfileBtn, setupdateProfileBtn] = useState(true);
   const [isOpenModalForEdu, setisOpenModalForEdu] = useState(false);
 
+  // --- Editable "About" section state ---
+  const [isEditingAbout, setisEditingAbout] = useState(false);
+  const [aboutDraft, setaboutDraft] = useState("");
+
   useEffect(() => {
 
     dispatch(getAboutUser({ token: localStorage.getItem("token") }));
@@ -84,6 +88,7 @@ const Profile = () => {
       currentPost: userProfile.currentPost,
       postwork: userProfile.postwork,
       education: userProfile.education,
+      about: userProfile.about,
     });
     await dispatch(getAboutUser({ token: localStorage.getItem("token") }));
     setupdateProfileBtn(false);
@@ -170,10 +175,43 @@ const Profile = () => {
             {/* About Section */}
             <div className={styles.section}>
               <h3>About</h3>
-              <p>
-                {userProfile.about ||
-                  " I am a passionate Full Stack Developer with a strong foundation in Java and expertise in Data Structures and Algorithms (DSA)Skilled in building scalable, responsive, and efficient web applications, I enjoy solving complex problems and bringing creative solutions to life. I have hands-on experience with both front-end and back-end technologies, and I am committed to writing clean, maintainable code that drives real-world impact,, "}
-              </p>
+              {isEditingAbout ? (
+                <div>
+                  <textarea
+                    className={styles.addExpreinceInput}
+                    value={aboutDraft}
+                    onChange={(e) => setaboutDraft(e.target.value)}
+                    rows={5}
+                  />
+                  <div
+                    onClick={() => {
+                      setuserProfile({ ...userProfile, about: aboutDraft });
+                      setisEditingAbout(false);
+                      // setupdateProfileBtn(true);
+                    }}
+                    className={styles.updateProfileBtnEX}
+                  >
+                    Save
+                  </div>
+                  <div
+                    onClick={() => setisEditingAbout(false)}
+                    className={styles.updateProfileBtnEX}
+                  >
+                    Cancel
+                  </div>
+                </div>
+              ) : (
+                <p
+                  onClick={() => {
+                    setaboutDraft(userProfile.about || "");
+                    setisEditingAbout(true);
+                  }}
+                >
+                  {userProfile.about ||
+                    " I am a passionate Full Stack Developer with a strong foundation in Java and expertise in Data Structures and Algorithms (DSA). Skilled in building scalable, responsive, and efficient web applications, I enjoy solving complex problems and bringing creative solutions to life. I have hands-on experience with both front-end and back-end technologies, and I am committed to writing clean, maintainable code that drives real-world impact."
+                    }
+                </p>
+              )}
             </div>
 
             {/* Experience Section */}
@@ -208,7 +246,7 @@ const Profile = () => {
                   </div>
                 ))
               ) : (
-                <p></p>
+                <p>No education details available.</p>
               )}
               <button
 
