@@ -9,5 +9,6 @@
 }
 
 body{
+    background-color: oklch(98.6% 0.031 120.757);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
