@@ -48,6 +48,10 @@ const profileSchema = new mongoose.Schema({
         type: String,
         default: '',
     },
+    about: {
+        type: String,
+        default: '',
+    },
     currentPost: {
         type: String,
         default: '',

@@ -219,6 +219,7 @@ export const updateProfileData= async(req, res)=>{
         if (newProfileData.postwork !== undefined) ProfileData.pastWork = newProfileData.postwork;
         if (newProfileData.pastWork !== undefined) ProfileData.pastWork = newProfileData.pastWork;
         if (newProfileData.bio !== undefined) ProfileData.bio = newProfileData.bio;
+        if (newProfileData.about !== undefined) ProfileData.about = newProfileData.about;
         if (newProfileData.currentPost !== undefined) ProfileData.currentPost = newProfileData.currentPost;
         if (newProfileData.education !== undefined) ProfileData.education = newProfileData.education;
         await ProfileData.save();

@@ -16,7 +16,7 @@ function NavbarComponent() {
             router.push("/");
           }}
         >
-          socialBlogSite
+          socialBlogsSite
         </h2>
         <div className={styles.navBarOptionContainer}>
 
@@ -32,22 +32,6 @@ function NavbarComponent() {
               Be a part
             </div>
           )}
-
-          {authState?.profileFetch &&
-            <div style={{ display: "flex", gap: "1.2rem" }}>
-              <p
-
-                onClick={() => { router.push("/profile") }}
-                style={{ 
-                  fontWeight: "bold",
-                   cursor: "pointer" ,
-                    backgroundColor:"red",
-                    
-
-                 }}>profile</p>
-            </div>
-
-          }
 
         </div>
       </nav>

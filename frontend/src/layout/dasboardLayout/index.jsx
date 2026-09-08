@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { logoutUser, setisTokenThere } from "@/config/redux/reducer/authreducer";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import Avatar from "@/Component/Avatar";
 function DashboardLayout({ children }) {
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth);
@@ -44,7 +45,7 @@ function DashboardLayout({ children }) {
               />
             </svg>
 
-            <p>Scroll</p>
+            <p>Home</p>
           </div>
           <div
             onClick={() => router.push("/discover")}
@@ -65,7 +66,7 @@ function DashboardLayout({ children }) {
               />
             </svg>
 
-            <p>Discover</p>
+            <p>Search</p>
           </div>
 
           <div
@@ -87,7 +88,7 @@ function DashboardLayout({ children }) {
               />
             </svg>
 
-            <p>My Connections</p>
+            <p>Connections</p>
           </div>
 
           <div onClick={handleLogout} className={styles.sidebarOption}>
@@ -105,23 +106,50 @@ function DashboardLayout({ children }) {
                 d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
               />
             </svg>
-            <p>Sign out</p>
+            <p>Log out</p>
           </div>
         </div>
 
         <div className={styles.homeContainer_feedContainer}>{children}</div>
-        {/* <div className={styles.homeContainer_extraContainer}>
-          <h3>Top profiles. </h3>
-
-          {authState.all_profiles_fetched &&
-            authState.all_s.map((profile) => {
-              return (
-                <div>
-                  <p>{profile.userId.name}</p>
-                </div>
-              );
-            })}
-        </div> */}
+        <aside className={styles.homeContainer_extraContainer}>
+          {authState.user && (
+            <div
+              className={styles.profileSummary}
+              onClick={() => router.push("/profile")}
+            >
+              <div className={styles.profileCover} />
+              <div className={styles.profileSummaryBody}>
+                <Avatar
+                  src={authState.user.userId?.profilePicture}
+                  name={authState.user.userId?.name}
+                  className={styles.profileSummaryAvatar}
+                  initialClassName={styles.profileSummaryAvatar}
+                />
+                <h3>{authState.user.userId?.name || "Your profile"}</h3>
+                <section className={styles.profileSummaryEducation}>
+                  {/* <h4>Education</h4> */}
+                  {authState.user.education?.length > 0 ? (
+                    authState.user.education.map((education, index) => (
+                      <div key={`${education.school || "education"}-${index}`}>
+                        <strong>{education.school || "School"}</strong>
+                        <span>{education.degree || "Degree not added"}</span>
+                        <span>{education.fieldStudy || "Field of study not added"}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <span>Add your education</span>
+                  )}
+                </section>
+                <p className={styles.profileSummaryAbout}>
+                  {authState.user.about ||
+                    authState.user.bio ||
+                    "Add an About section to tell people more about you."}
+                </p>
+                <span>View profile</span>
+              </div>
+            </div>
+          )}
+        </aside>
       </div>
 
       <div className={styles.mobileNavBar}>

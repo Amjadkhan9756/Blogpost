@@ -42,7 +42,7 @@ function LoginComponent() {
 
 
 
-    useEffect(()=>{
+    useEffect(()=>{ 
         if(localStorage.getItem("token")){
             router.push("/dashboard");
         }

@@ -1,5 +1,7 @@
 .homeContainer {
-    display: flex;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr) 300px;
+    gap: 1rem;
 
 
 
@@ -65,6 +67,8 @@
 
 
 .homeContainer_feedContainer {
+    min-width: 0;
+    width: 100%;
 
 
 
@@ -101,7 +105,7 @@
 .homeContainer_extraContainer {
 
     border-left: 1px solid rgb(222, 222, 222);
-    padding-left: 1.5rem;
+    padding: 1rem 1.5rem 1rem;
 
 
 
@@ -124,6 +128,111 @@
     /* NEW: full height */
     overflow-y: auto;
 
+}
+
+.profileSummary {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.profileCover {
+    height: 58px;
+    background: linear-gradient(135deg, #0a5347, #3fa38c);
+}
+
+.profileSummaryBody {
+    position: relative;
+    padding: 1rem 1.25rem 1.25rem;
+    text-align: center;
+}
+
+.profileSummaryAvatar {
+    width: 68px;
+    height: 68px;
+    margin: -42px auto 0.55rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #0e6b5c;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.profileSummary h3 {
+    margin: 0;
+    color: #1f1f1f;
+    font-size: 1rem;
+}
+
+.profileSummaryEducation {
+    margin-top: 0.9rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e4e4e4;
+    text-align: left;
+}
+
+.profileSummaryEducation h4 {
+    margin: 0 0 0.65rem;
+    color: #1f1f1f;
+    font-size: 0.95rem;
+}
+
+.profileSummaryEducation div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-bottom: 0.75rem;
+}
+
+.profileSummaryEducation strong {
+    color: #1f1f1f;
+    font-size: 0.85rem;
+}
+
+.profileSummaryEducation span {
+    color: #666;
+    font-size: 0.78rem;
+    font-weight: 400;
+}
+
+.profileSummary p {
+    min-height: 2.4em;
+    margin: 0.35rem 0 0.8rem;
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.profileSummaryAbout {
+    min-height: 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e4e4e4;
+    line-height: 1.45;
+}
+
+.profileSummary span {
+    color: #0a66c2;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+@media only screen and (max-width: 900px) {
+    .homeContainer {
+        grid-template-columns: 180px minmax(0, 1fr);
+    }
+
+    .homeContainer_extraContainer {
+        display: none;
+    }
 }
 
 .mobileNavBar {

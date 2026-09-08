@@ -4,7 +4,9 @@ function UserLayout({children}) {
     return ( 
 
        <div>
-        <NavbarComponent></NavbarComponent>
+        <NavbarComponent>
+          
+        </NavbarComponent>
        
          {children}
        </div>
