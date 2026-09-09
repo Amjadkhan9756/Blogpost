@@ -86,7 +86,7 @@
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.26);
+    background: #fff;
     border: 1px solid rgba(82, 92, 88, 0.26);
     border-radius: 22px;
     cursor: pointer;
@@ -102,7 +102,7 @@
     position: relative;
     padding: 1rem 1.25rem 1.3rem;
     text-align: center;
-    background: rgba(245, 242, 236, 0.8);
+    background: #fff;
 }
 
 .profileSummaryAvatar {
@@ -195,12 +195,13 @@
 }
 
 .createPostContainer {
+    box-sizing: border-box;
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: min(100%, 770px);
+    width: 100%;
   padding: 0.9rem 1rem 0.9rem 0.9rem;
-  background: rgba(255, 255, 255, 0.18);
+    background: #fff;
   border: 1px solid rgba(93, 84, 73, 0.28);
   border-radius: 26px;
   position: relative;
@@ -311,7 +312,7 @@
 
 .singleCard {
     width: 100%;
-    background: rgba(255, 255, 255, 0.18);
+    background: #fff;
     border: 1px solid rgba(93, 84, 73, 0.28);
     border-radius: 20px;
     overflow: hidden;
